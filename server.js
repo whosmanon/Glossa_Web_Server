@@ -55,6 +55,28 @@ function escapeRegex(str) {
 
 async function translateText(text, from, to) {
   if (!text || text.trim().length === 0) return text;
+
+  try {
+    const encodedText = encodeURIComponent(text);
+    const from_code = LANG_CODES[from];
+    const to_code = LANG_CODES[to];
+    const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from_code}&tl=${to_code}&dt=t&q=${encodedText}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!Array.isArray(data) || !Array.isArray(data[0])) {
+      console.error('Unexpected Google Translate response shape');
+      return text;
+    }
+
+    const translated = data[0].map(function(segment) { return segment[0]; }).join('');
+    return translated || text;
+  } catch (error) {
+    console.error('Translation error:', error);
+    return text;
+  }
+}translateText(text, from, to) {
+  if (!text || text.trim().length === 0) return text;
   
   try {
     const encodedText = encodeURIComponent(text.substring(0, 500));
