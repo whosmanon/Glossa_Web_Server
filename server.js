@@ -70,9 +70,6 @@ async function translateText(text, from, to) {
   }
 }
 
-// ========== Routes ==========
-
-// Upload et traduction
 app.post('/api/translate', upload.single('file'), async (req, res) => {
   try {
     const { fromLang, toLang } = req.body;
@@ -88,7 +85,6 @@ app.post('/api/translate', upload.single('file'), async (req, res) => {
     const filePath = req.file.path;
     const fileBuffer = fs.readFileSync(filePath);
 
-    // Extraire les textes
     const zip = new JSZip();
     await zip.loadAsync(fileBuffer);
 
@@ -123,21 +119,17 @@ app.post('/api/translate', upload.single('file'), async (req, res) => {
       return res.status(400).json({ success: false, error: 'No translatable text found' });
     }
 
-    console.log(`Translating ${allTexts.length} texts from ${fromLang} to ${toLang}...`);
+    console.log(`Translating ${allTexts.length} texts...`);
 
-    // Traduire les textes
     const translations = {};
     for (let i = 0; i < allTexts.length; i++) {
       const text = allTexts[i];
       translations[text] = await translateText(text, fromLang, toLang);
-      
-      // Throttle les requêtes API
       if (i < allTexts.length - 1) {
         await new Promise(r => setTimeout(r, 100));
       }
     }
 
-    // Réinjecter les traductions
     const newZip = new JSZip();
     for (const [filename, file] of Object.entries(zip.files)) {
       if (filename.startsWith('Stories/Story_') && filename.endsWith('.xml')) {
@@ -173,29 +165,13 @@ app.post('/api/translate', upload.single('file'), async (req, res) => {
     }
 
     const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
-const downloadId = uuidv4();
-const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
-const bufferData = Buffer.from(translatedBuffer);
-fs.writeFileSync(downloadPath, bufferData);
-
-const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
-    const downloadId = uuidv4();
-    const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
-    const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
     const downloadId = uuidv4();
     const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
     const bufferData = Buffer.from(translatedBuffer);
-    fs.writeFileSync(downloadPath, bufferData);fs.writeFileSync(downloadPath, translatedBuffer);
+    fs.writeFileSync(downloadPath, bufferData);
 
-    // Nettoyer l'upload original après 5 secondes
-    setTimeout(() => {
-      try { fs.unlinkSync(filePath); } catch (e) {}
-    }, 5000);
-
-    // Nettoyer le fichier téléchargé après 1 heure
-    setTimeout(() => {
-      try { fs.unlinkSync(downloadPath); } catch (e) {}
-    }, 3600000);
+    setTimeout(() => { try { fs.unlinkSync(filePath); } catch (e) {} }, 5000);
+    setTimeout(() => { try { fs.unlinkSync(downloadPath); } catch (e) {} }, 3600000);
 
     res.json({
       success: true,
@@ -206,45 +182,33 @@ const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
 
   } catch (error) {
     console.error('Error:', error);
-    if (req.file) {
-      try { fs.unlinkSync(req.file.path); } catch (e) {}
-    }
+    if (req.file) { try { fs.unlinkSync(req.file.path); } catch (e) {} }
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Download fichier traduit
 app.get('/api/download/:downloadId', (req, res) => {
   try {
     const filePath = path.join(uploadDir, `${req.params.downloadId}.idml`);
-    
     if (!fs.existsSync(filePath)) {
-      return res.status(404).json({ success: false, error: 'File not found or expired' });
+      return res.status(404).json({ success: false, error: 'File not found' });
     }
-
     const fileName = req.query.fileName || 'translated.idml';
     res.setHeader('Content-Type', 'application/octet-stream');
     res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
-    
     const fileStream = fs.createReadStream(filePath);
     fileStream.pipe(res);
-
-    // Nettoyer le fichier après 30 secondes
-    setTimeout(() => {
-      try { fs.unlinkSync(filePath); } catch (e) {}
-    }, 30000);
-
+    setTimeout(() => { try { fs.unlinkSync(filePath); } catch (e) {} }, 30000);
   } catch (error) {
     console.error('Download error:', error);
     res.status(500).json({ success: false, error: error.message });
   }
 });
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
 app.listen(PORT, () => {
-  console.log(`🚀 Glossa Web Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Glossa running on http://localhost:${PORT}`);
 });
