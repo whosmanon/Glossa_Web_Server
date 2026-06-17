@@ -1,84 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Glossa — IDML Translator</title>
-  <link rel="stylesheet" href="style.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.6">
+  <style type="text/css">
+    p.p2 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Apple Color Emoji'; -webkit-text-stroke: #000000}
+    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000; min-height: 14.0px}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); background-color: #ffffff}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85); min-height: 13.0px}
+    p.p8 {margin: 0.0px 0.0px 0.0px 0.0px; font: 11.0px 'Helvetica Neue'; color: #000000; color: rgba(0, 0, 0, 0.85); -webkit-text-stroke: rgba(0, 0, 0, 0.85)}
+    span.s1 {font-kerning: none}
+    span.s2 {font: 11.0px Times; font-kerning: none}
+    span.s3 {font-kerning: none; background-color: #ffffff}
+    span.s4 {font: 11.0px '.Apple Color Emoji UI'; font-kerning: none; background-color: #b3b3b3}
+    span.s5 {font-kerning: none; background-color: #b3b3b3}
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <h1>Glossa</h1>
-      <p>Translate Adobe InDesign IDML files instantly</p>
-    </div>
-
-    <div class="card">
-      <div class="upload-zone" id="uploadZone">
-        <div class="upload-icon">📤</div>
-        <p>Drag & drop your IDML file here or click to select</p>
-        <input type="file" id="fileInput" accept=".idml" style="display: none;">
-      </div>
-      <div id="fileName" class="file-name"></div>
-    </div>
-
-    <div class="languages">
-      <div class="lang-group">
-        <label>From</label>
-        <select id="langFrom">
-          <option value="fr">French</option>
-          <option value="en">English</option>
-          <option value="es">Spanish</option>
-          <option value="de">German</option>
-          <option value="nl">Dutch</option>
-          <option value="pt">Portuguese</option>
-        </select>
-      </div>
-      <div class="lang-group">
-        <label>To</label>
-        <select id="langTo">
-          <option value="en">English</option>
-          <option value="fr">French</option>
-          <option value="es">Spanish</option>
-          <option value="de">German</option>
-          <option value="nl">Dutch</option>
-          <option value="pt">Portuguese</option>
-        </select>
-      </div>
-    </div>
-
-    <button id="translateBtn" class="btn btn-primary">
-      🌐 Translate
-    </button>
-
-    <div id="progressContainer" class="progress-container" style="display: none;">
-      <div class="progress-info">
-        <span id="statusMsg">Initializing...</span>
-        <span id="progressPercent">0%</span>
-      </div>
-      <div class="progress-bar">
-        <div id="progressFill" class="progress-fill"></div>
-      </div>
-    </div>
-
-    <div id="resultContainer" class="result-container" style="display: none;">
-      <div class="result-success">
-        <div class="success-icon">✅</div>
-        <div>
-          <p class="success-title">Translation complete!</p>
-          <p class="success-detail" id="resultText"></p>
-        </div>
-      </div>
-      <button id="downloadBtn" class="btn btn-success">
-        ⬇️ Download translated file
-      </button>
-    </div>
-
-    <div class="footer">
-      <p>© 2026 Glossa — Powered by Google Translate</p>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Times; -webkit-text-stroke: #000000"><span class="s1"><b>Glossa</b></span></h1>
+<p class="p2"><span class="s1">Translate Adobe InDesign IDML files instantly</span></p>
+<p class="p3"><span class="s1">📤</span></p>
+<p class="p2"><span class="s1">Drag &amp; drop your IDML file here or click to select</span></p>
+<p class="p4"><span class="s1"></span><br></p>
+<p class="p5"><span class="s1">From</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">French</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">English</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Spanish</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">German</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Dutch</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Portuguese</span></p>
+<p class="p7"><span class="s3"><span class="Apple-converted-space">        </span></span></p>
+<p class="p5"><span class="s1">To</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">English</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">French</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Spanish</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">German</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Dutch</span></p>
+<p class="p6"><span class="s1"><span class="Apple-converted-space">          </span></span><span class="s2">Portuguese</span></p>
+<p class="p7"><span class="s3"><span class="Apple-converted-space">        </span></span></p>
+<p class="p8"><span class="s4">🌐</span><span class="s5"> Translate</span></p>
+<p class="p2"><span class="s1">© 2026 Glossa — Powered by WhosManon</span></p>
 </body>
 </html>

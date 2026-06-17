@@ -175,7 +175,11 @@ app.post('/api/translate', upload.single('file'), async (req, res) => {
     const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
     const downloadId = uuidv4();
     const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
-    fs.writeFileSync(downloadPath, translatedBuffer);
+    const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
+    const downloadId = uuidv4();
+    const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
+    const bufferData = Buffer.from(translatedBuffer);
+    fs.writeFileSync(downloadPath, bufferData);fs.writeFileSync(downloadPath, translatedBuffer);
 
     // Nettoyer l'upload original après 5 secondes
     setTimeout(() => {
