@@ -173,6 +173,12 @@ app.post('/api/translate', upload.single('file'), async (req, res) => {
     }
 
     const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
+const downloadId = uuidv4();
+const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
+const bufferData = Buffer.from(translatedBuffer);
+fs.writeFileSync(downloadPath, bufferData);
+
+const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
     const downloadId = uuidv4();
     const downloadPath = path.join(uploadDir, `${downloadId}.idml`);
     const translatedBuffer = await newZip.generateAsync({ type: 'arraybuffer' });
