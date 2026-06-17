@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glossa — IDML Translator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Glossa</h1>
+      <p>Translate Adobe InDesign IDML files instantly</p>
+    </div>
+
+    <div class="card">
+      <div class="upload-zone" id="uploadZone">
+        <div class="upload-icon">📤</div>
+        <p>Drag & drop your IDML file here or click to select</p>
+        <input type="file" id="fileInput" accept=".idml" style="display: none;">
+      </div>
+      <div id="fileName" class="file-name"></div>
+    </div>
+
+    <div class="languages">
+      <div class="lang-group">
+        <label>From</label>
+        <select id="langFrom">
+          <option value="fr">French</option>
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="de">German</option>
+          <option value="nl">Dutch</option>
+          <option value="pt">Portuguese</option>
+        </select>
+      </div>
+      <div class="lang-group">
+        <label>To</label>
+        <select id="langTo">
+          <option value="en">English</option>
+          <option value="fr">French</option>
+          <option value="es">Spanish</option>
+          <option value="de">German</option>
+          <option value="nl">Dutch</option>
+          <option value="pt">Portuguese</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="translateBtn" class="btn btn-primary">
+      🌐 Translate
+    </button>
+
+    <div id="progressContainer" class="progress-container" style="display: none;">
+      <div class="progress-info">
+        <span id="statusMsg">Initializing...</span>
+        <span id="progressPercent">0%</span>
+      </div>
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
+      </div>
+    </div>
+
+    <div id="resultContainer" class="result-container" style="display: none;">
+      <div class="result-success">
+        <div class="success-icon">✅</div>
+        <div>
+          <p class="success-title">Translation complete!</p>
+          <p class="success-detail" id="resultText"></p>
+        </div>
+      </div>
+      <button id="downloadBtn" class="btn btn-success">
+        ⬇️ Download translated file
+      </button>
+    </div>
+
+    <div class="footer">
+      <p>© 2026 Glossa — Powered by Google Translate</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
